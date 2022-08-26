@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:myflutter/pages/home/home_page.dart';
+import 'package:myflutter/pages/home/notice_dialog.dart';
 import 'package:myflutter/pages/message/message_list_page.dart';
+import 'package:myflutter/pages/user/open_account_page.dart';
 import 'package:myflutter/routes/page_num.dart';
 
 /// 路由表
@@ -17,6 +19,24 @@ class RouteMap {
         pageBuilder: (_, __, ___) => MessageListPage(
           arguments: settings.arguments,
         ),
+      );
+    },
+    PageNum.noticeDialog: (settings, uniqueId) {
+      return PageRouteBuilder(
+        settings: settings,
+
+        ///透明弹窗页面这个需要是false
+        opaque: false,
+
+        ///背景蒙版颜色
+        barrierColor: Colors.black54,
+        pageBuilder: (_, __, ___) => const NoticeDialog(),
+      );
+    },
+    PageNum.openAccountPage: (settings, uniqueId) {
+      return PageRouteBuilder(
+        settings: settings,
+        pageBuilder: (_, __, ___) => const OpenAccountPage(),
       );
     }
   };

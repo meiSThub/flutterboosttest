@@ -17,4 +17,10 @@ class MethodChannelHelper {
     String battery = await _channel.invokeMethod("getBatteryLevel");
     return battery;
   }
+
+  void startNativePage(String route, Map<String, dynamic>? params) {
+    params ??= {};
+    params['route'] = route;
+    _channel.invokeMethod("startNativePage", params);
+  }
 }

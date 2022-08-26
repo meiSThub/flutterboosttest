@@ -9,7 +9,9 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
 import com.idlefish.flutterboost.FlutterBoost
+import com.mei.myhost.LoginActivity
 import com.mei.myhost.MyApplication
+import com.mei.myhost.utils.ActivityUtils
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
@@ -48,6 +50,7 @@ object MethodChannelHelper : MethodChannel.MethodCallHandler, NativeInvokeFlutte
         Log.i(TAG, "onMethodCall: methodName=$methodName,arguments=$arguments")
         when (methodName) {
             "getBatteryLevel" -> result.success("当前电量：${getBatteryLevel()}")
+            "startNativePage" -> startNativePage(call, result)
         }
     }
 
@@ -79,5 +82,19 @@ object MethodChannelHelper : MethodChannel.MethodCallHandler, NativeInvokeFlutte
                     intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
         }
         return batteryLevel
+    }
+
+    /**
+     * 启动原生页面
+     * @param call
+     * @param result
+     */
+    private fun startNativePage(call: MethodCall, result: MethodChannel.Result) {
+        val route = (call.arguments as? Map<*, *>)?.get("route")
+        ActivityUtils.current()?.let {
+            when (route) {
+                "login" -> it.startActivity(Intent(it, LoginActivity::class.java))
+            }
+        }
     }
 }

@@ -74,6 +74,39 @@ class HomePageState extends BasePageState {
             },
             child: const Text("开启新容器的方式进行页面跳转"),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              var res =
+                  await BoostNavigator.instance.push(PageNum.noticeDialog);
+              setState(() {
+                result = "弹框点击按钮：$res";
+              });
+            },
+            child: const Text("不开启新容器的flutter内部弹窗(推荐)"),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              var res = await BoostNavigator.instance.push(
+                PageNum.noticeDialog,
+
+                /// 开启新容器的方法，打开弹框
+                withContainer: true,
+
+                /// 透明
+                opaque: false,
+              );
+              setState(() {
+                result = "弹框点击按钮：$res";
+              });
+            },
+            child: const Text("开启新容器的flutter内部弹窗"),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              MethodChannelHelper().startNativePage('login', null);
+            },
+            child: const Text("启动原生登录页面"),
+          ),
         ],
       ),
     );

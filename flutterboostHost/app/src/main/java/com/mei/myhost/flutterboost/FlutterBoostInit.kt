@@ -2,6 +2,7 @@ package com.mei.myhost.flutterboost
 
 import android.app.Application
 import android.content.Intent
+import android.util.Log
 import com.idlefish.flutterboost.FlutterBoost
 import com.idlefish.flutterboost.FlutterBoostDelegate
 import com.idlefish.flutterboost.FlutterBoostRouteOptions
@@ -20,6 +21,7 @@ import io.flutter.embedding.engine.FlutterEngine
  */
 class FlutterBoostInit {
     companion object {
+        private const val TAG = "FlutterBoostInit"
         fun init(application: Application) {
             FlutterBoost.instance().setup(application, object : FlutterBoostDelegate {
                 override fun pushNativeRoute(options: FlutterBoostRouteOptions) {
@@ -32,6 +34,7 @@ class FlutterBoostInit {
                 }
 
                 override fun pushFlutterRoute(options: FlutterBoostRouteOptions) {
+                    Log.i(TAG, "pushFlutterRoute: options=$options")
                     val intent: Intent =
                         FlutterBoostActivity.CachedEngineIntentBuilder(FlutterBoostActivity::class.java)
                             .backgroundMode(FlutterActivityLaunchConfigs.BackgroundMode.transparent)
