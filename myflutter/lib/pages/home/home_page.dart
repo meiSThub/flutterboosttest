@@ -103,7 +103,8 @@ class HomePageState extends BasePageState {
           ),
           ElevatedButton(
             onPressed: () async {
-              MethodChannelHelper().startNativePage('login', null);
+              // MethodChannelHelper().startNativePage('login', null);
+              BoostNavigator.instance.push("login");
             },
             child: const Text("启动原生登录页面"),
           ),

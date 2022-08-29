@@ -7,6 +7,7 @@ import com.idlefish.flutterboost.FlutterBoost
 import com.idlefish.flutterboost.FlutterBoostDelegate
 import com.idlefish.flutterboost.FlutterBoostRouteOptions
 import com.idlefish.flutterboost.containers.FlutterBoostActivity
+import com.mei.myhost.LoginActivity
 import com.mei.myhost.channel.BasicChannelHelper
 import com.mei.myhost.channel.MethodChannelHelper
 import io.flutter.embedding.android.FlutterActivityLaunchConfigs
@@ -26,11 +27,18 @@ class FlutterBoostInit {
             FlutterBoost.instance().setup(application, object : FlutterBoostDelegate {
                 override fun pushNativeRoute(options: FlutterBoostRouteOptions) {
                     //这里根据options.pageName来判断你想跳转哪个页面，这里简单给一个
+                    Log.i(TAG, "pushNativeRoute: options=${options.pageName()}")
                     // val intent = Intent(FlutterBoost.instance().currentActivity(),
                     //     YourTargetAcitvity::class.java
                     // )
                     // FlutterBoost.instance().currentActivity()
                     //     .startActivityForResult(intent, options.requestCode())
+                    val route = options.pageName()
+                    FlutterBoost.instance().currentActivity()?.let {
+                        when (route) {
+                            "login" -> it.startActivity(Intent(it, LoginActivity::class.java))
+                        }
+                    }
                 }
 
                 override fun pushFlutterRoute(options: FlutterBoostRouteOptions) {

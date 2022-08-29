@@ -91,7 +91,7 @@ object MethodChannelHelper : MethodChannel.MethodCallHandler, NativeInvokeFlutte
      */
     private fun startNativePage(call: MethodCall, result: MethodChannel.Result) {
         val route = (call.arguments as? Map<*, *>)?.get("route")
-        ActivityUtils.current()?.let {
+        FlutterBoost.instance().currentActivity()?.let {
             when (route) {
                 "login" -> it.startActivity(Intent(it, LoginActivity::class.java))
             }
