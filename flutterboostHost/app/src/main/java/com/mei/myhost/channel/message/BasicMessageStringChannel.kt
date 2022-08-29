@@ -1,5 +1,7 @@
 package com.mei.myhost.channel.message
 
+import android.util.Log
+import android.widget.Toast
 import com.idlefish.flutterboost.FlutterBoost
 import com.mei.myhost.channel.BasicChannelHelper
 import io.flutter.plugin.common.BasicMessageChannel
@@ -13,6 +15,8 @@ import io.flutter.plugin.common.StringCodec
  */
 class BasicMessageStringChannel : IMessageChannel<String> {
     companion object {
+        private const val TAG = "BasicMessageStringChann"
+
         private const val FLUTTER_BASIC_MESSAGE_STRING = "flutter.channel.basic_message_string"
     }
 
@@ -42,7 +46,8 @@ class BasicMessageStringChannel : IMessageChannel<String> {
      * @param reply
      */
     override fun onMessage(message: String?, reply: BasicMessageChannel.Reply<String>) {
-
+        Log.i(TAG, "onMessage: message=$message")
+        reply.reply("native received the message")
     }
 
     override fun send(message: String?, callback: BasicMessageChannel.Reply<String>?) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:myflutter/base/base_page_widget.dart';
+import 'package:myflutter/channel/basic_message_channel.dart';
 import 'package:myflutter/channel/event_channel.dart';
 import 'package:myflutter/channel/method_channel.dart';
 import 'package:myflutter/routes/page_num.dart';
@@ -44,14 +45,25 @@ class HomePageState extends BasePageState {
                 result = battery;
               });
             },
-            child: const Text("调用native方法，获取电量"),
+            child: const Text("MethodChannel，调用native方法，获取电量"),
           ),
           ElevatedButton(
             onPressed: () async {
               // MethodChannelHelper().startNativePage('login', null);
               EventChannelHelper.instance().listenNetwork();
             },
-            child: const Text("监听网络变化"),
+            child: const Text("EventChannel，监听网络变化"),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              String reply = await BasicMessageChannelHelper.instance()
+                  .channel
+                  .send("Hello,I am Flutter");
+              setState(() {
+                result = "$reply";
+              });
+            },
+            child: const Text("BasicMessageChannel，发送消息"),
           ),
           ElevatedButton(
             onPressed: () {
