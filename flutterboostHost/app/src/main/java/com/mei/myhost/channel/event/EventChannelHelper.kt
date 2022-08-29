@@ -1,5 +1,6 @@
 package com.mei.myhost.channel.event
 
+import android.util.Log
 import com.idlefish.flutterboost.FlutterBoost
 import io.flutter.plugin.common.EventChannel
 
@@ -10,10 +11,32 @@ import io.flutter.plugin.common.EventChannel
  * @desired
  */
 object EventChannelHelper {
+    private const val TAG = "EventChannelHelper"
+
     private const val FLUTTER_EVENT_CHANNEL = "flutter.event.channel"
 
     private val channel: EventChannel by lazy {
         EventChannel(FlutterBoost.instance().engine.dartExecutor, FLUTTER_EVENT_CHANNEL)
+    }
+
+    var eventSink: EventChannel.EventSink? = null
+
+    /**
+     * EventChannel 初始化
+     */
+    fun initEventChannel() {
+        channel.setStreamHandler(object : EventChannel.StreamHandler {
+            override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+                Log.i(TAG, "EventChannel 建立链接")
+                Log.i(TAG, "onListen: arguments=$arguments")
+                eventSink = events
+            }
+
+            override fun onCancel(arguments: Any?) {
+                Log.i(TAG, "onCancel: native 取消EventChannel")
+                eventSink = null
+            }
+        })
     }
 
 }

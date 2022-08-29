@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:myflutter/base/base_page_widget.dart';
+import 'package:myflutter/channel/event_channel.dart';
 import 'package:myflutter/channel/method_channel.dart';
 import 'package:myflutter/routes/page_num.dart';
 
@@ -44,6 +45,13 @@ class HomePageState extends BasePageState {
               });
             },
             child: const Text("调用native方法，获取电量"),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              // MethodChannelHelper().startNativePage('login', null);
+              EventChannelHelper.instance().listenNetwork();
+            },
+            child: const Text("监听网络变化"),
           ),
           ElevatedButton(
             onPressed: () {

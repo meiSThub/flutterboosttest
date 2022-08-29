@@ -10,6 +10,7 @@ import com.idlefish.flutterboost.containers.FlutterBoostActivity
 import com.mei.myhost.LoginActivity
 import com.mei.myhost.channel.BasicChannelHelper
 import com.mei.myhost.channel.MethodChannelHelper
+import com.mei.myhost.channel.event.EventChannelHelper
 import io.flutter.embedding.android.FlutterActivityLaunchConfigs
 import io.flutter.embedding.engine.FlutterEngine
 
@@ -57,6 +58,7 @@ class FlutterBoostInit {
                 // 在这里可以初始化 Channel，因为这个时候 FlutterEngine 对象才创建完成
                 MethodChannelHelper.initMethodHandler()
                 BasicChannelHelper.initMethodHandler()
+                EventChannelHelper.initEventChannel()
             }
         }
     }
